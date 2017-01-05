@@ -1,5 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :set_chapters, only: [:show]
 
   # GET /books
   # GET /books.json
@@ -26,9 +27,8 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
 
-    @book.volumes = 0 # Chapters.all.find(params[:id]).count ??
-
     if @book.save
+      @book.update_attributes(volumes: Chapter.all.where(book_id: @book).count)
       flash[:success] = "This book was successfully created."
       redirect_to @book
     else
@@ -50,16 +50,15 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-    @book.volumes = 0 # Chapters.all.find(params[:id]).count ??
 
     if @book.update(book_params)
+      @book.update_attributes(volumes: Chapter.all.where(book_id: @book).count)
       flash[:success] = "Book was successfully updated."
       redirect_to @book
     else
       flash[:failure] = "There was a problem updating your book."
       render 'edit'
     end
-
     # respond_to do |format|
     #   if @book.update(book_params)
     #     format.html { redirect_to @book, notice: 'Book was successfully updated.' }
@@ -90,8 +89,12 @@ class BooksController < ApplicationController
       @book = Book.find(params[:id])
     end
 
+    def set_chapters
+      @chapters = Chapter.all.where(book_id: @book)
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:title, :description, :complete, :volumes, :user_id)
+      params.require(:book).permit(:title, :description, :complete, :volumes, :user_id, chapters_attributes: [:id, :title, :description, :tags, :content, :_destroy])
     end
 end
