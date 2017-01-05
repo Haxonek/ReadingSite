@@ -28,7 +28,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
-      @book.update_attributes(volumes: Chapter.all.where(book_id: @book).count)
+      update_volumes_count
       flash[:success] = "This book was successfully created."
       redirect_to @book
     else
@@ -52,7 +52,7 @@ class BooksController < ApplicationController
   def update
 
     if @book.update(book_params)
-      @book.update_attributes(volumes: Chapter.all.where(book_id: @book).count)
+      update_volumes_count
       flash[:success] = "Book was successfully updated."
       redirect_to @book
     else
@@ -91,6 +91,10 @@ class BooksController < ApplicationController
 
     def set_chapters
       @chapters = Chapter.all.where(book_id: @book)
+    end
+
+    def update_volumes_count
+      @book.update_attributes(volumes: Chapter.all.where(book_id: @book).count)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
