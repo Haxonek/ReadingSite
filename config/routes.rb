@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   resources :books do
     collection do
+      get :recent
       get :completed
       get :short
     end

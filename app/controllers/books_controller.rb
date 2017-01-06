@@ -8,6 +8,11 @@ class BooksController < ApplicationController
     @books = Book.all.paginate(:page => params[:page], per_page: 15)
   end
 
+  def recent
+    @books = Book.recent.paginate(:page => params[:page], per_page: 15)
+    render 'index'
+  end
+
   def completed
     @books = Book.completed.paginate(:page => params[:page], per_page: 15)
     render 'index'
