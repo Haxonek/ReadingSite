@@ -2,6 +2,12 @@ class ChaptersController < ApplicationController
   before_action :set_chapter, only: [:show, :destroy]
 
   def show
+    renderer =  Redcarpet::Render::HTML.new(filter_html: true, no_images: true,
+                prettify: true)
+    @markdown = Redcarpet::Markdown.new(renderer, extensions =
+                {no_intra_emphasis: true, highlight: true, underline: true,
+                autolink: true})
+
     @comments = Comment.all.where(book_id: @chapter.book_id, chapter_id: @chapter)
     @comment = Comment.new
   end

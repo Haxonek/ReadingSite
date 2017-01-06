@@ -23,12 +23,12 @@
 
 <p>
   <strong>Content:</strong>
-  <%= @chapter.content %>
+  <%= @markdown.render(@chapter.content).html_safe %>
 </p>
 
 <!-- displays comments -->
 <% @comments.each do |comment| %>
-  <p><%= comment.content %>
+  <p><%= @markdown.render(comment.content).html_safe %>
    <%= link_to "Delete", [comment.chapter, comment], method: :delete, data: { confirm: 'Are you sure?' } %></p>
 <% end %>
 
