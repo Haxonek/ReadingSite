@@ -2,6 +2,8 @@ class ChaptersController < ApplicationController
   before_action :set_chapter, only: [:show, :destroy]
 
   def show
+    @comments = Comment.all.where(book_id: @chapter.book_id, chapter_id: @chapter)
+    @comment = Comment.new
   end
 
   # DELETE /chapter/1

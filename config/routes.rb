@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
+
   resources :books
-  resources :chapters
+
+  resources :chapters do
+    resources :comments
+  end
 
   root 'books#index'
 

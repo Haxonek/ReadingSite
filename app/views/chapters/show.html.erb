@@ -26,5 +26,14 @@
   <%= @chapter.content %>
 </p>
 
+<!-- displays comments -->
+<% @comments.each do |comment| %>
+  <p><%= comment.content %>
+   <!-- link_to "Delete", comment, method: :delete, data: { confirm: 'Are you sure?' } --></p>
+<% end %>
+
+<!-- Creates new comment -->
+<%= render 'form' %>
+
 <%= link_to 'Edit', edit_book_path(@chapter.book_id) %> |
 <%= link_to 'Back', book_path(@chapter.book_id) %>

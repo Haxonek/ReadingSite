@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105174732) do
+ActiveRecord::Schema.define(version: 20170105214028) do
 
   create_table "books", force: :cascade do |t|
     t.string   "title"
@@ -36,5 +36,19 @@ ActiveRecord::Schema.define(version: 20170105174732) do
   end
 
   add_index "chapters", ["book_id"], name: "index_chapters_on_book_id"
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "content"
+    t.decimal  "rating",     precision: 3, scale: 2
+    t.integer  "chapter_id"
+    t.integer  "book_id"
+    t.integer  "user_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "comments", ["book_id"], name: "index_comments_on_book_id"
+  add_index "comments", ["chapter_id"], name: "index_comments_on_chapter_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
 end
