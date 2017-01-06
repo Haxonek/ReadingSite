@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :books
+  resources :books do
+    collection do
+      get :completed
+      get :short
+    end
+  end
+
 
   resources :chapters do
     resources :comments

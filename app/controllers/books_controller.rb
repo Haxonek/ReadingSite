@@ -8,6 +8,16 @@ class BooksController < ApplicationController
     @books = Book.all
   end
 
+  def completed
+    @books = Book.completed
+    render 'index'
+  end
+
+  def short
+    @books = Book.short
+    render 'index'
+  end
+
   # GET /books/1
   # GET /books/1.json
   def show
