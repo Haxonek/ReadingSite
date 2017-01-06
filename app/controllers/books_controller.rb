@@ -5,16 +5,16 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all
+    @books = Book.all.paginate(:page => params[:page], per_page: 15)
   end
 
   def completed
-    @books = Book.completed
+    @books = Book.completed.paginate(:page => params[:page], per_page: 15)
     render 'index'
   end
 
   def short
-    @books = Book.short
+    @books = Book.short.paginate(:page => params[:page], per_page: 15)
     render 'index'
   end
 

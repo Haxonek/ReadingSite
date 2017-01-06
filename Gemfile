@@ -24,6 +24,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # used in nesting forms
 gem 'cocoon', '~> 1.2', '>= 1.2.6'
+# used to create multiple pages of books
+gem 'will_paginate', '~> 3.1.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
