@@ -15,7 +15,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment.destroy
+		@comment = Comment.find(params[:id])
+		@comment.destroy
 
     flash[:success] = "This comment was successfully deleted."
     redirect_to chapter_path(@comment.chapter_id)
