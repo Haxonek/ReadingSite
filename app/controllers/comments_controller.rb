@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     @chapter = Chapter.find(params[:chapter_id])
     params[:comment][:chapter_id] = @chapter.id

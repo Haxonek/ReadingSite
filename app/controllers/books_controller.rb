@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
   before_action :set_chapters, only: [:show]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
   # GET /books
   # GET /books.json
@@ -8,16 +9,19 @@ class BooksController < ApplicationController
     @books = Book.all.paginate(:page => params[:page], per_page: 15)
   end
 
+  # GET /books/recent
   def recent
     @books = Book.recent.paginate(:page => params[:page], per_page: 15)
     render 'index'
   end
 
+  # GET /books/completed
   def completed
     @books = Book.completed.paginate(:page => params[:page], per_page: 15)
     render 'index'
   end
 
+  # GET /books/short
   def short
     @books = Book.short.paginate(:page => params[:page], per_page: 15)
     render 'index'
@@ -41,6 +45,7 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new(book_params)
+    @book.user_id = current_user.id
 
     if @book.save
       update_volumes_count
@@ -65,7 +70,6 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   # PATCH/PUT /books/1.json
   def update
-
     if @book.update(book_params)
       update_volumes_count
       flash[:success] = "Book was successfully updated."

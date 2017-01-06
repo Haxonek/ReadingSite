@@ -28,6 +28,8 @@ gem 'cocoon', '~> 1.2', '>= 1.2.6'
 gem 'will_paginate', '~> 3.1.0'
 # used for markdown processing in the content section of the books/comments
 gem 'redcarpet', '~> 3.3', '>= 3.3.3'
+# Devise used for user model and controller
+gem 'devise', '~> 4.2'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

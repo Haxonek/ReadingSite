@@ -1,5 +1,6 @@
 class ChaptersController < ApplicationController
   before_action :set_chapter, only: [:show, :destroy]
+  before_action :authenticate_user!, except: [:show]
 
   def show
     renderer =  Redcarpet::Render::HTML.new(filter_html: true, no_images: true,
