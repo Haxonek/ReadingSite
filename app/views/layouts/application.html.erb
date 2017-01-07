@@ -15,8 +15,8 @@
   <ul>
   <% if user_signed_in? %>
     <%= link_to "sign out", destroy_user_session_path, :method => :delete %>
-    <%= link_to "#{current_user.name}", edit_user_registration_path %>
-    <%= link_to "go ad free", '#' %>
+    <%= link_to "#{current_user.name}", user_path(current_user) %>
+    <%= link_to "go ad free", users_adfree_path(current_user) %>
   <% else %>
     <%= link_to "sign in", new_user_session_path %>
     <%= link_to "sign up", new_user_registration_path %>

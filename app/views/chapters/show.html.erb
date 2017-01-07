@@ -26,10 +26,13 @@
   <%= @markdown.render(@chapter.content).html_safe %>
 </p>
 
+<br/>
+<h4>Comments</h4>
 <!-- displays comments -->
 <% @comments.each do |comment| %>
-  <p><%= @markdown.render(comment.content).html_safe %>
-   <%= link_to "Delete", [comment.chapter, comment], method: :delete, data: { confirm: 'Are you sure?' } %></p>
+  <%= @markdown.render(comment.content).html_safe %>
+   <!-- User.find(comment.user_id).name  - -->
+  <%= link_to "Delete", [comment.chapter, comment], method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
 
 <!-- Creates new comment -->

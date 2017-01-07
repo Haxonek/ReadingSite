@@ -9,10 +9,12 @@ Rails.application.routes.draw do
     end
   end
 
-
   resources :chapters do
     resources :comments
   end
+
+  get '/users/adfree', to: 'users#adfree'
+  resources :users
 
   root 'books#index'
 

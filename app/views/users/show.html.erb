@@ -1,0 +1,12 @@
+<h1><%= @user.name %></h1>
+<p>Find me in app/views/users/show.html.erb</p>
+<p><%= @user.description %></p>
+
+<ol>
+<% @books.each do |book| %>
+  <li><%= link_to book.title, book_path(book) %></li>
+<% end %>
+</ol>
+
+<%= link_to "Edit", edit_user_registration_path %>
+<%= link_to "Home", root_path %>

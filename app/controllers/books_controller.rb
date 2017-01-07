@@ -2,6 +2,7 @@ class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
   before_action :set_chapters, only: [:show]
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :authorized_user, only: [:edit, :update, :destroy]
 
   # GET /books
   # GET /books.json
@@ -114,6 +115,11 @@ class BooksController < ApplicationController
 
     def update_volumes_count
       @book.update_attributes(volumes: Chapter.all.where(book_id: @book).count)
+    end
+
+    def authorized_user
+      @book = current_user.books.find_by(id: params[:id])
+      redirect_to books_path, notice: "Not authorized to edit this nook" if @book.nil?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
