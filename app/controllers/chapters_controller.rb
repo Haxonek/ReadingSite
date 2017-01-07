@@ -11,7 +11,7 @@ class ChaptersController < ApplicationController
                 autolink: true})
 
     @comments = Comment.all.where(book_id: @chapter.book_id, chapter_id: @chapter)
-    @comment = Comment.new
+    @comment = current_user.comments.build # Comment.new
   end
 
   # DELETE /chapter/1

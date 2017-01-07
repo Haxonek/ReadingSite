@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
     params[:comment][:book_id] = @chapter.book_id
     user_id = current_user.id
     # params[:comment][:user_id] = current_user
-    @comment = Comment.new(comment_params)
+    @comment = current_user.comments.build(comment_params)
     # @comment.chapter_id = @chapter
     # @comment.book_id = @chapter.book_id
     # @comment.user_id = current_user.id
