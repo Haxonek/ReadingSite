@@ -8,11 +8,11 @@
   <p><%= link_to "Follow", follow_user_path(@user) %></p>
 <% end %>
 
-<ol>
-<% @books.each do |book| %>
-  <li><%= link_to book.title, book_path(book) %></li>
+<ul>
+<% @users.each do |user| %>
+  <li><%= link_to user.name, user_path(user) %></li>
 <% end %>
-</ol>
+</ul>
 
 <%= link_to "Edit", edit_user_registration_path %>
 <%= link_to "Home", root_path %>
