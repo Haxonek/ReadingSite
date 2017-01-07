@@ -2,6 +2,12 @@
 <p>Find me in app/views/users/show.html.erb</p>
 <p><%= @user.description %></p>
 
+<% if @user.followed_by?(current_user) %>
+  <p><%= link_to "Unfollow", unfollow_user_path(@user) %></p>
+<% else %>
+  <p><%= link_to "Follow", follow_user_path(@user) %></p>
+<% end %>
+
 <ol>
 <% @books.each do |book| %>
   <li><%= link_to book.title, book_path(book) %></li>

@@ -30,6 +30,8 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'redcarpet', '~> 3.3', '>= 3.3.3'
 # Devise used for user model and controller
 gem 'devise', '~> 4.2'
+# for subscription/following model
+gem 'acts_as_follower', '~> 0.2.1'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

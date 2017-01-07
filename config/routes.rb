@@ -14,7 +14,12 @@ Rails.application.routes.draw do
   end
 
   get '/users/adfree', to: 'users#adfree'
-  resources :users
+  resources :users do
+    member do
+      get :follow, to: 'users#follow'
+      get :unfollow, to: 'users#unfollow'
+    end
+  end
 
   root 'books#index'
 
