@@ -17,11 +17,6 @@
 </p>
 
 <p>
-  <strong>Volume:</strong>
-  <%= @chapter.volume %>
-</p>
-
-<p>
   <strong>Content:</strong>
   <%= @markdown.render(@chapter.content).html_safe %>
 </p>
@@ -31,7 +26,7 @@
 <!-- displays comments -->
 <% @comments.each do |comment| %>
   <%= @markdown.render(comment.content).html_safe %>
-  <%= User.find(comment.user_id).name %> - 
+  <%= User.find(comment.user_id).name %> -
   <%= link_to "Delete", [comment.chapter, comment], method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
 

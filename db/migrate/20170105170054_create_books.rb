@@ -3,6 +3,7 @@ class CreateBooks < ActiveRecord::Migration
     create_table :books do |t|
       t.string :title
       t.string :description
+      t.string :tags
       t.boolean :complete, default: false
       t.integer :volumes
       t.integer :user_id

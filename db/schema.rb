@@ -16,18 +16,18 @@ ActiveRecord::Schema.define(version: 20170107051733) do
   create_table "books", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
-    t.boolean  "complete"
+    t.string   "tags"
+    t.boolean  "complete",    default: false
     t.integer  "volumes"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "chapters", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
     t.string   "tags",                                default: ""
-    t.integer  "volume",                              default: 0
     t.text     "content"
     t.decimal  "rating",      precision: 3, scale: 2
     t.integer  "book_id"

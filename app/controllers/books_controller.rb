@@ -7,7 +7,20 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.all.paginate(:page => params[:page], per_page: 15)
+    if params[:query].present?
+      @items = params[:query].split(' ') # array of search items
+      sql_query = "" # set up sql query
+
+      @items.each do |item| # set up to search each word
+        sql_query = sql_query + "(title LIKE \"%#{item}%\" OR description LIKE \"%#{item}%\" OR tags LIKE \"%#{item}%\") AND "
+      end
+
+      sql_query = sql_query.chomp(' AND ') # remove extra AND
+      # actually search database for list
+      @books = Book.all.where(sql_query).paginate(:page => params[:page], per_page: 15)
+    else
+      @books = Book.all.paginate(:page => params[:page], per_page: 15)
+    end
   end
 
   # GET /books/recent

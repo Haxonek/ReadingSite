@@ -4,7 +4,7 @@ class CreateChapters < ActiveRecord::Migration
       t.string :title
       t.string :description
       t.string :tags, default: ""
-      t.integer :volume, default: 0
+      # t.integer :volume, default: 0
       t.text :content
       t.decimal :rating, precision: 3, scale: 2
       t.references :book, index: true, foreign_key: true

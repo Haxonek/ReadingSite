@@ -1,9 +1,13 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
-    # @books = Book.where(user_id: @user).order("created_at DESC")
-    @users = @user.following_users #.books.order("created_at DESC").limit(5)
+    @users = @user.following_users
 
+    @books =  Book.where(user_id: params[:id]).order("created_at DESC")
+  end
+
+  def your_stories
+    @selections =  Book.where(user_id: params[:id]).order("created_at DESC")
   end
 
   def adfree

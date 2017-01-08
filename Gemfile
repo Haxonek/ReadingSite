@@ -1,10 +1,12 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+# Useing 'pg' as the database
+# gem 'pg', '~> 0.19.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -32,6 +34,8 @@ gem 'redcarpet', '~> 3.3', '>= 3.3.3'
 gem 'devise', '~> 4.2'
 # for subscription/following model
 gem 'acts_as_follower', '~> 0.2.1'
+# used for better searching
+# gem 'elasticsearch', '~> 5.0'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
