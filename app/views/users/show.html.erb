@@ -1,26 +1,46 @@
-<h1><%= @user.name %></h1>
-<p>Find me in app/views/users/show.html.erb</p>
-<p><%= @user.description %></p>
-
-<% unless current_user.nil? %>
-  <% if @user.followed_by?(current_user) %>
-    <p><%= link_to "Unfollow", unfollow_user_path(@user) %></p>
-  <% else %>
-    <p><%= link_to "Follow", follow_user_path(@user) %></p>
-  <% end %>
-<% end %>
-
-<ul>
-<% @users.each do |user| %>
-  <li><%= link_to user.name, user_path(user) %></li>
-<% end %>
-</ul>
-
-<ol>
-<% @books.each do |book| %>
-  <li><%= link_to book.title, book_path(book) %></li>
-<% end %>
-</ol>
-
-<%= link_to "Edit", edit_user_registration_path %>
-<%= link_to "Home", root_path %>
+<div class="container">
+  <div class="row">
+    <div class="three columns nav-plug"></div>
+    <div class="nine columns">
+      <h1><%= @user.name %></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="three columns">
+      <ul class="nav-items">
+        <%= link_to content_tag(:li, "Home", class: 'nav-item'), root_path, class: "nav-item-link" %>
+        <%= link_to content_tag(:li, "Edit", class: 'nav-item'), edit_user_registration_path, class: "nav-item-link" %>
+        <% @users.each do |user| %>
+          <%= link_to content_tag(:li, "#{user.name}", class: 'nav-item'), user_path(user), class: "nav-item-link" %>
+        <% end %>
+      </ul>
+    </div>
+    <div class="nine columns">
+      <p><%= @user.description %></p> <!-- Add markdown! -->
+      <% unless current_user.nil? || current_user.id == @user.id %>
+        <% if @user.followed_by?(current_user) %>
+          <h5><%= link_to "Unfollow", unfollow_user_path(@user) %></h5>
+        <% else %>
+          <h5><%= link_to "Follow", follow_user_path(@user) %></h5>
+        <% end %>
+      <% end %>
+      <h3>Stories</h3>
+      <% unless @books.empty? %>
+        <% @books.each do |book| %>
+          <p>
+            <%= link_to "#{book.title}", book_path(book) %>
+            <%= ", #{book.created_at.month}/#{book.created_at.day}/#{book.created_at.year} | #{book.description}" %>
+            <% if user_signed_in? %>
+              <% if current_user.id == book.user_id %>
+                <%= link_to " - edit", edit_book_path(book) %>
+              <% end %>
+            <% end %>
+          </p>
+        <% end %>
+      <% else %>
+        <p>You've never posted any stories.  <% link_to "Create one.", new_book_path %></p>
+      <% end %>
+    </div>
+  </div>
+  <%= render 'layouts/footer' %>
+</div>

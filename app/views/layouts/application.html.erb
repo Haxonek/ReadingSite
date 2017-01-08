@@ -2,26 +2,17 @@
 <html>
 <head>
   <title>Reading</title>
+  <%= stylesheet_link_tag    'skeleton', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'normalize', media: 'all', 'data-turbolinks-track' => true %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Nunito+Sans:300,400" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-  <% flash.each do |key, msg| %>
-    <%= content_tag(:div, msg, class: "alert alert-"+key) %>
-  <% end %>
-
-  <ul>
-  <% if user_signed_in? %>
-    <%= link_to "sign out", destroy_user_session_path, :method => :delete %>
-    <%= link_to "#{current_user.name}", user_path(current_user) %>
-    <%= link_to "go ad free", users_adfree_path(current_user) %>
-  <% else %>
-    <%= link_to "sign in", new_user_session_path %>
-    <%= link_to "sign up", new_user_registration_path %>
-  <% end %>
-  </ul>
+  <%= render 'layouts/header' %>
 
   <%= yield %>
 

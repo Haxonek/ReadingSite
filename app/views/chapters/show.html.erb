@@ -1,37 +1,45 @@
-<h1>Chapter#show</h1>
-<p>Find me in app/views/chapter/show.html.erb</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @chapter.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @chapter.description %>
-</p>
-
-<p>
-  <strong>Tags:</strong>
-  <%= @chapter.tags %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @markdown.render(@chapter.content).html_safe %>
-</p>
-
-<br/>
-<h4>Comments</h4>
-<!-- displays comments -->
-<% @comments.each do |comment| %>
-  <%= @markdown.render(comment.content).html_safe %>
-  <%= User.find(comment.user_id).name %> -
-  <%= link_to "Delete", [comment.chapter, comment], method: :delete, data: { confirm: 'Are you sure?' } %>
-<% end %>
-
-<!-- Creates new comment -->
-<%= render 'form' %>
-
-<%= link_to 'Edit', edit_book_path(@chapter.book_id) %> |
-<%= link_to 'Back', book_path(@chapter.book_id) %>
+<div class="container">
+  <div class="row">
+    <div class="three columns">&nbsp;</div>
+    <div class="nine columns">
+      <h1><%= @chapter.title %></h1>
+      <%= @markdown.render(@chapter.description).html_safe %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="three columns">
+      <ul class="nav-items">
+        <div><%= content_tag(:li, "#{@chapter.tags}", class: 'nav-item') %></div>
+        <!-- PLEASE ENCORPERATE USER_ID INTO CHAPTER, THIS IS SO REDICULOUS -->
+        <% chapter_user_id = Book.find(@chapter.book_id).user_id %>
+        <%= link_to content_tag(:li, "#{User.find(chapter_user_id).name}", class: 'nav-item'), user_path(chapter_user_id), class: "nav-item-link" %>
+        <% if user_signed_in? && current_user.id == chapter_user_id %>
+          <%= link_to content_tag(:li, "Edit", class: 'nav-item'), edit_book_path(@chapter.book_id), class: "nav-item-link" %>
+        <% end %>
+      </ul>
+    </div>
+    <div class="nine columns">
+      <%= @markdown.render(@chapter.content).html_safe %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="three columns">&nbsp;</div>
+    <div class="nine columns">
+      <h4>Comments</h4>
+      <!-- displays comments -->
+      <% @comments.each do |comment| %>
+        <div class="row">
+          <div class="two columns">
+            <%= User.find(comment.user_id).name %> -
+            <%= link_to "Delete", [comment.chapter, comment], method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+          <div class="ten columns">
+            <%= @markdown.render(comment.content).html_safe %>
+          </div>
+        </div>
+      <% end %>
+      <!-- Creates new comment -->
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
       redirect_to chapter_path(@comment.chapter_id)
     else
       flash[:failure] = "There was an error posting your comment"
-      render 'show'
+      redirect_to chapter_path(@comment.chapter_id)
     end
   end
 

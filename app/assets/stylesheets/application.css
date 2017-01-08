@@ -13,3 +13,183 @@
  *= require_tree .
  *= require_self
  */
+
+ /*
+  weird rails querks
+ */
+
+a {
+  background-color: transparent !important;
+}
+
+ /*
+ 	General container
+ */
+
+ .container {
+ 	margin-top: 2em;
+ }
+
+ /* removes extra spacing on top */
+ @media (max-width: 550px) {
+ 	.container {
+ 		margin-top: 0;
+ 	}
+ }
+
+ h1, h2, h3, h4, h5 {
+ 	color: #666;
+ 	font-family: "Nunito Sans", sans-serif;
+ 	font-weight: 300;
+ 	margin-top: .8em;
+ }
+
+ p {
+ 	color: #444;
+ 	font-family: "Noto Serif", serif;
+ 	font-size: 1.3em;
+  line-height: 1.8em;
+ }
+
+ a {
+ 	text-decoration: none;
+ 	transition: .15;
+ 	color: #FFA500;
+ }
+
+ a:visited {
+   color: #FFA500
+ }
+
+ a:hover {
+ 	text-decoration: underline;
+ 	color: #ffae35;
+ }
+
+ .nav-plug {
+ 	padding-top: 3.1em;
+ 	padding-left: 2em;
+ }
+
+ /* removes empty top block if in mobile mode */
+ @media (max-width: 550px) {
+ 	.nav-plug {
+ 		display: none;
+ 	}
+ }
+
+ .small-plug-nav {
+ 	font-size: .8em;
+ }
+
+ .small-plug-footer {
+ 	font-size: .8em;
+ 	text-align: right;
+ 	font-family: monospace;
+ 	padding: 2em 0;
+ }
+
+ /*
+ 	Title section
+ */
+
+ .page-title {
+ 	margin: 1em 0;
+ 	font-size: 5rem;
+ }
+
+ /*
+ 	Navigation
+ */
+
+ .nav-items {
+ 	border-left: 2px #999 solid;
+ 	text-align: left;
+ 	padding: 0 2em;
+ }
+
+ .header-nav {
+   border: none;
+   line-height: .8em;
+ }
+
+ .header {
+   margin-top: 2em;
+ }
+
+ .nav-item-link {
+ 	text-decoration: none;
+ }
+
+ .nav-item {
+ 	list-style: none;
+ 	font-family: 'Nunito Sans', sans-serif;
+ 	font-weight: 300;
+ }
+
+ .next-section {
+ 	width: 100%;
+ 	text-align: right;
+ }
+
+ @media (max-width: 750px) {
+ 	.nav-items {
+ 		border: none;
+ 		padding: 0;
+ 		text-align: left;
+ 	}
+
+  .header-nav {
+    text-align: center;
+  }
+
+ 	#canvas {
+ 		overflow-x: scroll;
+ 	}
+ }
+
+ @media (max-width: 550px) {
+ 	.nav-items {
+ 		font-size: 1.4em;
+ 		border-bottom: 2px solid #666;
+ 	}
+
+  .header-nav {
+    border: none;
+  }
+ }
+
+ /*
+ 	Code
+ */
+
+ pre > code {
+   display: block;
+   padding: 1rem 1.5rem;
+   white-space: pre;
+ }
+
+ code {
+ 	margin: 0 .2rem;
+ 	white-space: nowrap;
+ 	background: #F1F1F1;
+ 	border: 1px solid #F1F1F1;
+ 	overflow: scroll;
+ 	border-radius: 0;
+ 	padding: .6em .3em;
+ 	font-family: monospace, monospace;
+ 	font-size: 1em;
+ }
+
+ /*
+ 	Alert - site conscruction
+ */
+
+ .alert * {
+ 	background-color: #FFF;
+ 	border: solid #F1F1F1 5px;
+ 	color: #FFA500;
+ 	padding: 1em;
+ 	text-align: center;
+ 	/*margin: 0em;*/
+ }

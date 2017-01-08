@@ -1,0 +1,24 @@
+<div class="row header">
+  <div class="ten columns alert">&nbsp;</div>
+  <div class="two columns">
+    <ul class="nav-items header-nav">
+      <% if user_signed_in? %>
+        <%= link_to content_tag(:li, "Sign out", class: 'nav-item'), destroy_user_session_path, :method => :delete, class: "nav-item-link" %>
+        <%= link_to content_tag(:li, "#{current_user.name}", class: 'nav-item'), user_path(current_user) %>
+        <%= link_to content_tag(:li, "Ad free", class: 'nav-item'), users_adfree_path(current_user) %>
+      <% else %>
+        <%= link_to "sign in", new_user_session_path %>
+        <%= link_to "sign up", new_user_registration_path %>
+      <% end %>
+    </ul>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="twelve columns alert">
+      <% flash.each do |key, msg| %>
+        <%= content_tag(:h5, msg, class: "alert-#{key}") %>
+      <% end %>
+    </div>
+  </div>
+</div>
