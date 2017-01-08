@@ -21,23 +21,73 @@ class BooksController < ApplicationController
     else
       @books = Book.all.paginate(:page => params[:page], per_page: 15)
     end
+
+    @route_with_scope = books_path
   end
 
   # GET /books/recent
   def recent
-    @books = Book.recent.paginate(:page => params[:page], per_page: 15)
+    # @books = Book.recent.paginate(:page => params[:page], per_page: 15)
+    if params[:query].present?
+      @items = params[:query].split(' ') # array of search items
+      sql_query = "" # set up sql query
+
+      @items.each do |item| # set up to search each word
+        sql_query = sql_query + "(title LIKE \"%#{item}%\" OR description LIKE \"%#{item}%\" OR tags LIKE \"%#{item}%\") AND "
+      end
+
+      sql_query = sql_query.chomp(' AND ') # remove extra AND
+      # actually search database for list
+      @books = Book.recent.where(sql_query).paginate(:page => params[:page], per_page: 15)
+    else
+      @books = Book.recent.paginate(:page => params[:page], per_page: 15)
+    end
+
+    @route_with_scope = recent_books_path
     render 'index'
   end
 
   # GET /books/completed
   def completed
-    @books = Book.completed.paginate(:page => params[:page], per_page: 15)
+    # @books = Book.completed.paginate(:page => params[:page], per_page: 15)
+    if params[:query].present?
+      @items = params[:query].split(' ') # array of search items
+      sql_query = "" # set up sql query
+
+      @items.each do |item| # set up to search each word
+        sql_query = sql_query + "(title LIKE \"%#{item}%\" OR description LIKE \"%#{item}%\" OR tags LIKE \"%#{item}%\") AND "
+      end
+
+      sql_query = sql_query.chomp(' AND ') # remove extra AND
+      # actually search database for list
+      @books = Book.completed.where(sql_query).paginate(:page => params[:page], per_page: 15)
+    else
+      @books = Book.completed.paginate(:page => params[:page], per_page: 15)
+    end
+
+    @route_with_scope = completed_books_path
     render 'index'
   end
 
   # GET /books/short
   def short
-    @books = Book.short.paginate(:page => params[:page], per_page: 15)
+    # @books = Book.short.paginate(:page => params[:page], per_page: 15)
+    if params[:query].present?
+      @items = params[:query].split(' ') # array of search items
+      sql_query = "" # set up sql query
+
+      @items.each do |item| # set up to search each word
+        sql_query = sql_query + "(title LIKE \"%#{item}%\" OR description LIKE \"%#{item}%\" OR tags LIKE \"%#{item}%\") AND "
+      end
+
+      sql_query = sql_query.chomp(' AND ') # remove extra AND
+      # actually search database for list
+      @books = Book.short.where(sql_query).paginate(:page => params[:page], per_page: 15)
+    else
+      @books = Book.short.paginate(:page => params[:page], per_page: 15)
+    end
+
+    @route_with_scope = short_books_path
     render 'index'
   end
 
