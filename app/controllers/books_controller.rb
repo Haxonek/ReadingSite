@@ -17,9 +17,9 @@ class BooksController < ApplicationController
 
       sql_query = sql_query.chomp(' AND ') # remove extra AND
       # actually search database for list
-      @books = Book.all.where(sql_query).paginate(:page => params[:page], per_page: 15)
+      @books = Book.all.where(sql_query).paginate(:page => params[:page], per_page: 10)
     else
-      @books = Book.all.paginate(:page => params[:page], per_page: 15)
+      @books = Book.all.paginate(:page => params[:page], per_page: 10)
     end
 
     @route_with_scope = books_path
@@ -38,9 +38,9 @@ class BooksController < ApplicationController
 
       sql_query = sql_query.chomp(' AND ') # remove extra AND
       # actually search database for list
-      @books = Book.recent.where(sql_query).paginate(:page => params[:page], per_page: 15)
+      @books = Book.recent.where(sql_query).paginate(:page => params[:page], per_page: 10)
     else
-      @books = Book.recent.paginate(:page => params[:page], per_page: 15)
+      @books = Book.recent.paginate(:page => params[:page], per_page: 10)
     end
 
     @route_with_scope = recent_books_path
@@ -60,9 +60,9 @@ class BooksController < ApplicationController
 
       sql_query = sql_query.chomp(' AND ') # remove extra AND
       # actually search database for list
-      @books = Book.completed.where(sql_query).paginate(:page => params[:page], per_page: 15)
+      @books = Book.completed.where(sql_query).paginate(:page => params[:page], per_page: 10)
     else
-      @books = Book.completed.paginate(:page => params[:page], per_page: 15)
+      @books = Book.completed.paginate(:page => params[:page], per_page: 10)
     end
 
     @route_with_scope = completed_books_path
@@ -82,9 +82,9 @@ class BooksController < ApplicationController
 
       sql_query = sql_query.chomp(' AND ') # remove extra AND
       # actually search database for list
-      @books = Book.short.where(sql_query).paginate(:page => params[:page], per_page: 15)
+      @books = Book.short.where(sql_query).paginate(:page => params[:page], per_page: 10)
     else
-      @books = Book.short.paginate(:page => params[:page], per_page: 15)
+      @books = Book.short.paginate(:page => params[:page], per_page: 10)
     end
 
     @route_with_scope = short_books_path
@@ -98,7 +98,12 @@ class BooksController < ApplicationController
 
   # GET /books/new
   def new
-    @book = Book.new
+    if user_signed_in?
+      @book = Book.new
+    else
+      flash[:failure] = "You must be signed up to make a post.  Create an account now!"
+      redirect_to new_user_registration_path
+    end
   end
 
   # GET /books/1/edit
@@ -113,22 +118,13 @@ class BooksController < ApplicationController
 
     if @book.save
       update_volumes_count
+      update_tags
       flash[:success] = "This book was successfully created."
       redirect_to @book
     else
       flash["failure"] = "There was a problem creating your book."
       render 'new'
     end
-
-    # respond_to do |format|
-    #   if @book.save
-    #     format.html { redirect_to @book, notice: 'Book was successfully created.' }
-    #     format.json { render :show, status: :created, location: @book }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @book.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # PATCH/PUT /books/1
@@ -136,21 +132,13 @@ class BooksController < ApplicationController
   def update
     if @book.update(book_params)
       update_volumes_count
+      update_tags
       flash[:success] = "Book was successfully updated."
       redirect_to @book
     else
       flash[:failure] = "There was a problem updating your book."
       render 'edit'
     end
-    # respond_to do |format|
-    #   if @book.update(book_params)
-    #     format.html { redirect_to @book, notice: 'Book was successfully updated.' }
-    #     format.json { render :show, status: :ok, location: @book }
-    #   else
-    #     format.html { render :edit }
-    #     format.json { render json: @book.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
 
   # DELETE /books/1
@@ -178,6 +166,27 @@ class BooksController < ApplicationController
 
     def update_volumes_count
       @book.update_attributes(volumes: Chapter.all.where(book_id: @book).count)
+    end
+
+    def update_tags
+      set_chapters
+      book_tags = ""
+      # we'll take all the tags from chapters and add to book_tag
+      @chapters.each do |chapter|
+        if book_tags.empty?
+          book_tags = chapter.tags
+        else
+          tags = chapter.tags.split(', ')
+          tags.each do |tag|
+            # checks if book_tags contains tag, case insensitive
+            unless book_tags =~ /#{tag}/i
+              book_tags = book_tags + ", " + tag
+            end
+          end
+          # book_tags = book_tags + ", " + chapter.tags
+        end
+      end
+      @book.update_attributes(tags: book_tags)
     end
 
     def authorized_user

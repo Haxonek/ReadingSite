@@ -1,52 +1,35 @@
-
-<p>
-  <strong>Title:</strong>
-  <%= @book.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @book.description %>
-</p>
-
-<p>
-  <strong>Complete:</strong>
-  <%= @book.complete %>
-</p>
-
-<p>
-  <strong>Volumes:</strong>
-  <%= @book.volumes %>
-</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Tags</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @chapters.each do |chapter| %>
-      <tr>
-        <td><%= chapter.title %></td>
-        <td><%= chapter.description %></td>
-        <td><%= chapter.tags %></td>
-        <td><%= link_to 'Show', chapter %></td>
-        <td><%= link_to 'Edit', edit_book_path(@book) %></td>
-        <td><%= link_to 'Destroy', chapter, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<p>
-  <strong>User:</strong>
-  <%= @book.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_book_path(@book) %> |
-<%= link_to 'Back', books_path %>
+<div class="container">
+  <div class="row">
+    <div class="three columns">&nbsp;</div>
+    <div class="nine columns">
+      <h1><%= "#{@book.title} | #{@book.volumes} chapters" %></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="three columns">
+      <ul class="nav-items">
+        <%= link_to content_tag(:li, "Home", class: 'nav-item'), books_path, class: 'nav-item-link' %>
+        <%= link_to content_tag(:li, User.find(@book.user_id).name, class: 'nav-item'), user_path(@book.user_id), class: 'nav-item-link' %>
+        <% if user_signed_in? && current_user.id == @book.user_id %>
+          <%= link_to content_tag(:li, "Edit", class: 'nav-item'), edit_book_path(@book), class: 'nav-item-link' %>
+        <% end %>
+        <%= link_to content_tag(:li, "Publish a book", class: 'nav-item'), new_book_path, class: 'nav-item-link' %>
+      </ul>
+    </div>
+    <div class="nine columns">
+      <p><%= @book.description %></p>
+      <% unless @chapters.empty? %>
+        <% @chapters.each do |chapter| %>
+          <%= link_to content_tag(:p, "#{chapter.title} | #{chapter.description} [#{chapter.tags}]"), chapter_path(chapter), class: 'book-list-item' %>
+        <% end %>
+      <% else %>
+        <p>Unfortunately it looks as though there are no chapters in this book.</p>
+        <% if user_signed_in? && current_user.id == @book.user_id %>
+          <p>If you own this book you may further edit it <%= link_to "here", edit_book_path(@book) %></p>
+        <% end %>
+      <% end %>
+      <div class="pagination">
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,7 +3,9 @@
     <div class="three columns">&nbsp;</div>
     <div class="nine columns">
       <h1><%= @chapter.title %></h1>
-      <%= @markdown.render(@chapter.description).html_safe %>
+      <% if user_signed_in? && current_user.id == @chapter_user_id %>
+        <%= @markdown.render(@chapter.description).html_safe %>
+      <% end %>
     </div>
   </div>
   <div class="row">
@@ -29,11 +31,11 @@
       <!-- displays comments -->
       <% @comments.each do |comment| %>
         <div class="row">
-          <div class="two columns">
+          <div class="three columns">
             <%= User.find(comment.user_id).name %> -
             <%= link_to "Delete", [comment.chapter, comment], method: :delete, data: { confirm: 'Are you sure?' } %>
           </div>
-          <div class="ten columns">
+          <div class="nine columns">
             <%= @markdown.render(comment.content).html_safe %>
           </div>
         </div>

@@ -1,13 +1,13 @@
 <div class="nested-fields">
   <div class="field">
     <%= f.label :title %>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, class: "form-text-field" %>
     <%= f.label :description %>
-    <%= f.text_field :description %>
+    <%= f.text_field :description, class: "form-text-field" %>
     <%= f.label :tags %>
-    <%= f.text_field :tags %>
+    <%= f.text_field :tags, class: "form-text-field" %>
     <%= f.label :content %>
-    <%= f.text_area :content %>
+    <%= f.text_area :content, class: "content-text-area" %>
   </div>
   <%= link_to_remove_association "Remove Chapter", f %>
 </div>

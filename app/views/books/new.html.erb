@@ -1,5 +1,19 @@
-<h1>New Book</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', books_path %>
+<div class="container">
+  <div class="row">
+    <div class="three columns">&nbsp;</div>
+    <div class="nine columns">
+      <h1>Create a new book!</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="three columns">
+      <ul class="nav-items">
+        <%= link_to content_tag(:li, "Home", class: 'nav-item'), books_path, class: 'nav-item-link' %>
+        <%= link_to content_tag(:li, current_user.name, class: 'nav-item'), user_path(current_user.id), class: 'nav-item-link' %>
+      </ul>
+    </div>
+    <div class="nine columns">
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

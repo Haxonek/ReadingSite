@@ -1,57 +1,48 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="three columns">&nbsp;</div>
+    <div class="nine columns">
+      <h1>Read and post stories!</h1>
 
-<h1>Listing Books</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="three columns">
+      <ul class="nav-items">
+        <%= link_to content_tag(:li, "Publish a book", class: 'nav-item'), new_book_path, class: 'nav-item-link' %>
+        <div><%= content_tag(:li, "Only search for:", class: 'nav-item') %></div>
+        <%= link_to content_tag(:li, "All", class: 'nav-item'), books_path, class: "nav-item-link" %>
+        <%= link_to content_tag(:li, "Completed", class: 'nav-item'), completed_books_path, class: "nav-item-link" %>
+        <%= link_to content_tag(:li, "Short", class: 'nav-item'), short_books_path, class: "nav-item-link" %>
+        <%= link_to content_tag(:li, "Recent", class: 'nav-item'), recent_books_path, class: "nav-item-link" %>
+      </ul>
+    </div>
+    <div class="nine columns">
 
-<ol>
-  <li><%= link_to "Completed", completed_books_path %></li>
-  <li><%= link_to "Short", short_books_path %></li>
-  <li><%= link_to "Recent", recent_books_path %></li>
-  <li><%= link_to "All", books_path %></li>
-</ol>
-
-<%= form_tag @route_with_scope, method: :get do %>
-  <p>
-    <%= text_field_tag :query, params[:query] %>
-    <%= submit_tag "search", name: nil %>
-  </p>
-<% end %>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Complete</th>
-      <th>Volumes</th>
-      <th>User</th>
-      <th>Tags</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <% unless @books.empty? %>
-    <tbody>
-      <% @books.each do |book| %>
-        <tr>
-          <td><%= book.title %></td>
-          <td><%= book.description %></td>
-          <td><%= book.complete %></td>
-          <td><%= book.volumes %></td>
-          <td><%= link_to User.find(book.user_id).name, user_path(book.user_id) %></td>
-          <td><%= book.tags %></td>
-          <td><%= link_to 'Show', book %></td>
-          <td><%= link_to 'Edit', edit_book_path(book) %></td>
-          <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
+      <%= form_tag @route_with_scope, method: :get do %>
+        <p>
+          <%= text_field_tag :query, params[:query] %>
+          <%= submit_tag "search", name: nil %>
+        </p>
       <% end %>
-    </tbody>
-  <% else %>
-    <td colspan="9">There were no results</td>
-  <% end %>
-</table>
 
-<br>
+      <% if params[:query].nil? %>
+        <p>Welcome to my project site, where you can read and write stories for anyone to read!  Get started by <%= link_to "signing up", new_user_registration_path %>, <%= link_to "posting a story", new_book_path %> or searching above.</p>
+      <% else %>
+        <p><%= "Your search for #{params[:query]} returned #{@books.count} results" %></p>
+      <% end %>
 
-<%= will_paginate @books %>
-
-<%= link_to 'New Book', new_book_path %>
+      <% unless @books.empty? %>
+        <% @books.each do |book| %>
+          <%= link_to User.find(book.user_id).name, user_path(book.user_id) %>
+          <%= link_to content_tag(:p, "#{book.title} | #{book.description} [#{book.tags}]"), book_path(book), class: 'book-list-item' %>
+        <% end %>
+      <% else %>
+        <p>Unfortunately there were no search results.  We'd recommend reducing the specificity of your search or writing and <%= link_to "publishing the book", new_book_path %> yourself!</p>
+      <% end %>
+      <div class="pagination">
+        <%= will_paginate @books %>
+      </div>
+    </div>
+  </div>
+</div>

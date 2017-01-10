@@ -1,6 +1,18 @@
-<h1>Editing Book</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @book %> |
-<%= link_to 'Back', books_path %>
+<div class="container">
+  <div class="row">
+    <div class="three columns">&nbsp;</div>
+    <div class="nine columns">
+      <h1>Editing <%= @book.title %></h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="three columns">
+      <ul class="nav-items">
+        <%= link_to content_tag(:li, "Cancel", class: 'nav-item'), book_path(@book), class: 'nav-item-link' %>
+      </ul>
+    </div>
+    <div class="nine columns">
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

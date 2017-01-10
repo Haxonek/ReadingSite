@@ -10,6 +10,7 @@
       <ul class="nav-items">
         <%= link_to content_tag(:li, "Home", class: 'nav-item'), root_path, class: "nav-item-link" %>
         <%= link_to content_tag(:li, "Edit", class: 'nav-item'), edit_user_registration_path, class: "nav-item-link" %>
+        <%= link_to content_tag(:li, "New Book", class: 'nav-item'), new_book_path, class: "nav-item-link" %>
         <% @users.each do |user| %>
           <%= link_to content_tag(:li, "#{user.name}", class: 'nav-item'), user_path(user), class: "nav-item-link" %>
         <% end %>
