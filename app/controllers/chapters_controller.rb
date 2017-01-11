@@ -18,6 +18,9 @@ class ChaptersController < ApplicationController
     @comments = Comment.all.where(book_id: @chapter.book_id, chapter_id: @chapter)
 
     @comment = Comment.new
+
+    # increment hit couter
+    @chapter.increment!(:hits, by = 1)
   end
 
   # DELETE /chapter/1

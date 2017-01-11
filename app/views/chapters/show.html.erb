@@ -21,6 +21,9 @@
     </div>
     <div class="nine columns">
       <%= @markdown.render(@chapter.content).html_safe %>
+      <% if @chapter.hits > 112 %>
+        <h5 class="hit-counter"><%= @chapter.hits %> hits</h5>
+      <% end %>
     </div>
   </div>
   <div class="row">
