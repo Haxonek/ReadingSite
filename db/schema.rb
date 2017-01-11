@@ -29,13 +29,16 @@ ActiveRecord::Schema.define(version: 20170107051733) do
     t.string   "description"
     t.string   "tags",                                default: ""
     t.text     "content"
+    t.integer  "hits",                                default: 0,  null: false
     t.decimal  "rating",      precision: 3, scale: 2
+    t.integer  "user_id"
     t.integer  "book_id"
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
   end
 
   add_index "chapters", ["book_id"], name: "index_chapters_on_book_id"
+  add_index "chapters", ["user_id"], name: "index_chapters_on_user_id"
 
   create_table "comments", force: :cascade do |t|
     t.string   "content"

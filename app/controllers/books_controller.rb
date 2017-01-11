@@ -113,8 +113,8 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    @book = Book.new(book_params)
-    @book.user_id = current_user.id
+    # params[:book][:chapters_attributes][:user_id] = 6
+    @book = current_user.books.build(book_params)
 
     if @book.save
       update_volumes_count
@@ -196,6 +196,6 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:title, :description, :complete, :volumes, :user_id, chapters_attributes: [:id, :title, :description, :tags, :content, :_destroy])
+      params.require(:book).permit(:title, :description, :complete, :volumes, :user_id, chapters_attributes: [:id, :user_id, :title, :description, :tags, :content, :_destroy])
     end
 end

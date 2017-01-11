@@ -23,17 +23,17 @@ Book.create([
   ])
 
 Chapter.create([
-  {title: "Chapter 1", tags: "dave, chappell, show", book_id: 1, content: "This is the main book."},
-  {title: "Chapter 2", tags: "dave, chappell, show", book_id: 1, content: "This is the main book."},
-  {title: "Chapter 1", tags: "kanye, yeeze, rapper", book_id: 2, content: "This is the main book."},
-  {title: "Chapter 2", tags: "song, sonnett, sings", book_id: 2, content: "This is the main book."},
-  {title: "Chapter 3", tags: "never, bad, no, good", book_id: 2, content: "This is the main book."},
-  {title: "Chapter 4", tags: "right, down, through", book_id: 2, content: "A long, long, long, long time ago."},
-  {title: "Chapter 5", tags: "dave, chappell, show", book_id: 2, content: "This is the main book."},
-  {title: "Chapter 6", tags: "dave, chappell, show", book_id: 2, content: "This is the main book."},
-  {title: "Chapter 1", tags: "dave, chappell, show", book_id: 3, content: "This is the main book."},
-  {title: "The awakening", tags: "dave, chappell, show", book_id: 4, content: "This is the main book."},
-  {title: "Chapter 1", tags: "dave, chappell, show", book_id: 5, content: "This is the main book."}
+  {user_id: 1, title: "Chapter 1", tags: "dave, chappell, show", book_id: 1, content: "This is the main book."},
+  {user_id: 1, title: "Chapter 2", tags: "dave, chappell, show", book_id: 1, content: "This is the main book."},
+  {user_id: 3, title: "Chapter 1", tags: "kanye, yeeze, rapper", book_id: 2, content: "This is the main book."},
+  {user_id: 3, title: "Chapter 2", tags: "song, sonnett, sings", book_id: 2, content: "This is the main book."},
+  {user_id: 3, title: "Chapter 3", tags: "never, bad, no, good", book_id: 2, content: "This is the main book."},
+  {user_id: 3, title: "Chapter 4", tags: "right, down, through", book_id: 2, content: "A long, long, long, long time ago."},
+  {user_id: 3, title: "Chapter 5", tags: "dave, chappell, show", book_id: 2, content: "This is the main book."},
+  {user_id: 3, title: "Chapter 6", tags: "dave, chappell, show", book_id: 2, content: "This is the main book."},
+  {user_id: 3, title: "Chapter 1", tags: "dave, chappell, show", book_id: 3, content: "This is the main book."},
+  {user_id: 3, title: "The awakening", tags: "dave, chappell, show", book_id: 4, content: "This is the main book."},
+  {user_id: 5, title: "Chapter 1", tags: "dave, chappell, show", book_id: 5, content: "This is the main book."}
   ])
 
 Comment.create([

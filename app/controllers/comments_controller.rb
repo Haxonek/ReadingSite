@@ -6,13 +6,8 @@ class CommentsController < ApplicationController
     @chapter = Chapter.find(params[:chapter_id])
     params[:comment][:chapter_id] = @chapter.id
     params[:comment][:book_id] = @chapter.book_id
-    user_id = current_user.id
-    # params[:comment][:user_id] = current_user
+    params[:comment][:user_id] = current_user.id
     @comment = current_user.comments.build(comment_params)
-    # @comment.chapter_id = @chapter
-    # @comment.book_id = @chapter.book_id
-    # @comment.user_id = current_user.id
-    # current_user.links.build
 
     if @comment.save
       # @comment.update_attributes(user_id: current_user.id)

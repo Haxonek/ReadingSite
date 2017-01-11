@@ -4,6 +4,11 @@ class ChaptersController < ApplicationController
   before_action :authorized_user, only: [:destroy]
 
   def show
+    # Compensate for books#create method
+    if @chapter.user_id.nil? || @chapter.user_id == 0 # default value
+      @chapter.update_attributes(user_id: Book.find(@chapter.book_id).user_id)
+    end # otherwise user_id is already set
+
     renderer =  Redcarpet::Render::HTML.new(filter_html: true, no_images: true,
                 prettify: true)
     @markdown = Redcarpet::Markdown.new(renderer, extensions =
@@ -11,7 +16,8 @@ class ChaptersController < ApplicationController
                 autolink: true})
 
     @comments = Comment.all.where(book_id: @chapter.book_id, chapter_id: @chapter)
-    @comment = current_user.comments.build # Comment.new
+
+    @comment = Comment.new
   end
 
   # DELETE /chapter/1
@@ -32,6 +38,6 @@ class ChaptersController < ApplicationController
 
   def authorized_user
     @chapter = current_user.chapters.find_by(id: params[:id])
-    redirect_to user_path(Chapter.find_by(id: params[:id]).user_id), notice: "Not authorized to edit this chapter" if @chapter.nil?
+    redirect_to user_path(@chapter.user_id), notice: "Not authorized to edit this chapter" if @chapter.nil?
   end
 end

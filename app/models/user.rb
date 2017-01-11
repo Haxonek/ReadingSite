@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :books
+  has_many :chapters
   has_many :comments
   acts_as_followable
   acts_as_follower
