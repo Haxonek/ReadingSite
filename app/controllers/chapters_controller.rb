@@ -20,7 +20,13 @@ class ChaptersController < ApplicationController
     @comment = Comment.new
 
     # increment hit couter
-    @chapter.increment!(:hits, by = 1)
+    if user_signed_in?
+      unless @chapter.user_id == current_user.id
+        @chapter.increment!(:hits, by = 1)
+      end
+    else
+      @chapter.increment!(:hits, by = 1)
+    end
   end
 
   # DELETE /chapter/1
