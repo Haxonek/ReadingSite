@@ -3,7 +3,6 @@
     <div class="three columns">&nbsp;</div>
     <div class="nine columns">
       <h1>Read and post stories!</h1>
-
     </div>
   </div>
   <div class="row">
@@ -34,8 +33,16 @@
 
       <% unless @books.empty? %>
         <% @books.each do |book| %>
-          <%= link_to User.find(book.user_id).name, user_path(book.user_id) %>
-          <%= link_to content_tag(:p, "#{book.title} | #{book.description} [#{book.tags}]"), book_path(book), class: 'book-list-item' %>
+          <div class="book-wrapper">
+            <%= link_to User.find(book.user_id).name, user_path(book.user_id) %>
+            <!-- link_to content_tag(:p, "#{book.title} | #{book.description} [#{book.tags}]"), book_path(book), class: 'book-list-item' -->
+            <a href="<%= book_path(book) %>" class="book-list-item">
+              <p class="tooltip">
+                <%= "#{book.title} | #{book.description}" %>
+                <span class="tooltiptext"><%= book.tags %></span>
+              </p>
+            </a>
+          </div>
         <% end %>
       <% else %>
         <p>Unfortunately there were no search results.  We'd recommend reducing the specificity of your search or writing and <%= link_to "publishing the book", new_book_path %> yourself!</p>

@@ -4,8 +4,8 @@
     <ul class="nav-items header-nav">
       <% if user_signed_in? %>
         <%= link_to content_tag(:li, "Sign out", class: 'nav-item'), destroy_user_session_path, :method => :delete, class: "nav-item-link" %>
-        <%= link_to content_tag(:li, "#{current_user.name}", class: 'nav-item'), user_path(current_user) %>
         <%= link_to content_tag(:li, "Ad free", class: 'nav-item'), users_adfree_path(current_user) %>
+        <%= link_to content_tag(:li, "#{current_user.name}", class: 'nav-item'), user_path(current_user) %>
       <% else %>
         <%= link_to "sign in", new_user_session_path %>
         <%= link_to "sign up", new_user_registration_path %>

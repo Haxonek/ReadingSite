@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def adfree
-    @user = User.find(current_user.id)
+    # @user = User.find(current_user.id)
   end
 
   def follow

@@ -20,7 +20,9 @@
       <p><%= @book.description %></p>
       <% unless @chapters.empty? %>
         <% @chapters.each do |chapter| %>
-          <%= link_to content_tag(:p, "#{chapter.title} | #{chapter.description} [#{chapter.tags}]"), chapter_path(chapter), class: 'book-list-item' %>
+          <div class="book-wrapper no-tool-tip">
+            <%= link_to content_tag(:p, "#{chapter.title} | #{chapter.description} [#{chapter.tags}]"), chapter_path(chapter), class: 'book-list-item' %>
+          </div>
         <% end %>
       <% else %>
         <p>Unfortunately it looks as though there are no chapters in this book.</p>
