@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row">
+    <div class="three columns">&nbsp;</div>
+    <div class="nine columns">
+      <h1>Contact</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="three columns">
+      <ul class="nav-items">
+        <%= link_to content_tag(:li, "Home", class: 'nav-item'), root_path, class: 'nav-item-link' %>
+        <%= link_to content_tag(:li, "About Us", class: 'nav-item'), about_path, class: "nav-item-link" %>
+      </ul>
+    </div>
+    <div class="nine columns">
+      <p>Thanks for looking at our site!  If you've found any bugs or questions on our site, you may email me at <%= link_to "email@address.com", 'mailto:' %></p>
+      <p>Additonally we take copyright claims very seriously, and intend to take action on this regard.  You may email us at the addres <%= link_to "email@address.com", 'mailto:' %> as well and we will try to get in contact with both parties to look into and resolve the issue as quickly as possible.</p>
+    </div>
+  </div>
+</div>

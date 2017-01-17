@@ -8,16 +8,10 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     if params[:query].present?
-      @items = params[:query].split(' ') # array of search items
-      sql_query = "" # set up sql query
-
-      @items.each do |item| # set up to search each word
-        sql_query = sql_query + "(title LIKE \"%#{item}%\" OR description LIKE \"%#{item}%\" OR tags LIKE \"%#{item}%\") AND "
-      end
-
-      sql_query = sql_query.chomp(' AND ') # remove extra AND
-      # actually search database for list
-      @books = Book.all.where(sql_query).paginate(:page => params[:page], per_page: 10)
+      @books = Book.search(params[:query],
+        page: params[:page], per_page: 10,
+        fields: [:title, :description, :content]
+      )
     else
       @books = Book.all.paginate(:page => params[:page], per_page: 10)
     end
@@ -29,16 +23,10 @@ class BooksController < ApplicationController
   def recent
     # @books = Book.recent.paginate(:page => params[:page], per_page: 15)
     if params[:query].present?
-      @items = params[:query].split(' ') # array of search items
-      sql_query = "" # set up sql query
-
-      @items.each do |item| # set up to search each word
-        sql_query = sql_query + "(title LIKE \"%#{item}%\" OR description LIKE \"%#{item}%\" OR tags LIKE \"%#{item}%\") AND "
-      end
-
-      sql_query = sql_query.chomp(' AND ') # remove extra AND
-      # actually search database for list
-      @books = Book.recent.where(sql_query).paginate(:page => params[:page], per_page: 10)
+      @books = Book.recent.search(params[:query],
+        page: params[:page], per_page: 10,
+        fields: [:title, :description, :content]
+      )
     else
       @books = Book.recent.paginate(:page => params[:page], per_page: 10)
     end
@@ -51,16 +39,10 @@ class BooksController < ApplicationController
   def completed
     # @books = Book.completed.paginate(:page => params[:page], per_page: 15)
     if params[:query].present?
-      @items = params[:query].split(' ') # array of search items
-      sql_query = "" # set up sql query
-
-      @items.each do |item| # set up to search each word
-        sql_query = sql_query + "(title LIKE \"%#{item}%\" OR description LIKE \"%#{item}%\" OR tags LIKE \"%#{item}%\") AND "
-      end
-
-      sql_query = sql_query.chomp(' AND ') # remove extra AND
-      # actually search database for list
-      @books = Book.completed.where(sql_query).paginate(:page => params[:page], per_page: 10)
+      @books = Book.completed.search(params[:query],
+        page: params[:page], per_page: 10,
+        fields: [:title, :description, :content]
+      )
     else
       @books = Book.completed.paginate(:page => params[:page], per_page: 10)
     end
@@ -73,16 +55,10 @@ class BooksController < ApplicationController
   def short
     # @books = Book.short.paginate(:page => params[:page], per_page: 15)
     if params[:query].present?
-      @items = params[:query].split(' ') # array of search items
-      sql_query = "" # set up sql query
-
-      @items.each do |item| # set up to search each word
-        sql_query = sql_query + "(title LIKE \"%#{item}%\" OR description LIKE \"%#{item}%\" OR tags LIKE \"%#{item}%\") AND "
-      end
-
-      sql_query = sql_query.chomp(' AND ') # remove extra AND
-      # actually search database for list
-      @books = Book.short.where(sql_query).paginate(:page => params[:page], per_page: 10)
+      @books = Book.short.search(params[:query],
+        page: params[:page], per_page: 10,
+        fields: [:title, :description, :content]
+      )
     else
       @books = Book.short.paginate(:page => params[:page], per_page: 10)
     end
@@ -199,3 +175,20 @@ class BooksController < ApplicationController
       params.require(:book).permit(:title, :description, :complete, :volumes, :user_id, chapters_attributes: [:id, :user_id, :title, :description, :tags, :content, :_destroy])
     end
 end
+
+# Search not using elasticsearch, pure sql
+# subject to sql injection, etc
+# if params[:query].present?
+#   @items = params[:query].split(' ') # array of search items
+#   sql_query = "" # set up sql query
+#
+#   @items.each do |item| # set up to search each word
+#     sql_query = sql_query + "(title LIKE \"%#{item}%\" OR description LIKE \"%#{item}%\" OR tags LIKE \"%#{item}%\") AND "
+#   end
+#
+#   sql_query = sql_query.chomp(' AND ') # remove extra AND
+#   # actually search database for list
+#   @books = Book.all.where(sql_query).paginate(:page => params[:page], per_page: 10)
+# else
+#   @books = Book.all.paginate(:page => params[:page], per_page: 10)
+# end

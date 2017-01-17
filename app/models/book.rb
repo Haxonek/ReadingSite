@@ -1,4 +1,10 @@
+# require 'elasticsearch/model'
+
 class Book < ActiveRecord::Base
+  # include Elasticsearch::Model
+  # include Elasticsearch::Model::Callbacks
+  searchkick
+  Book.reindex
   has_many :chapters
   belongs_to :user
   accepts_nested_attributes_for :chapters, reject_if: :all_blank, allow_destroy: true

@@ -21,6 +21,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'contact', to: 'static_pages#contact'
+  get 'about', to: 'static_pages#about'
+
   root 'books#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
