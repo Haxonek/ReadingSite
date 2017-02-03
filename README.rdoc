@@ -18,7 +18,6 @@ Again you will have to have this installed and it will run as a process; we're j
 
   $ bundle install
   $ rake db:migrate
-
   $ rails server
 
 And you should be able to go to localhost:3000 to view and navagate the page.
