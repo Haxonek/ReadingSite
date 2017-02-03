@@ -26,10 +26,10 @@
       <% end %>
 
       <% if params[:query].nil? %>
-        <p>Welcome to my project site, where you can read and write stories for anyone to read!  Get started by <%= link_to "signing up", new_user_registration_path %>, <%= link_to "posting a story", new_book_path %> or searching above.</p>
-      <% else %>
-        <p><%= "Your search for #{params[:query]} returned #{@books.count} results" %></p>
+        <p>Welcome to ____, where you can read and write stories for anyone to read!  Get started by <%= link_to "signing up", new_user_registration_path %>, <%= link_to "posting a story", new_book_path %> or searching above.</p>
       <% end %>
+        <!-- <p> "Your search for #{params[:query]} returned #{@books.count} results" </p> -->
+       <!-- end  -->
 
       <% unless @books.empty? %>
         <% @books.each do |book| %>

@@ -1,28 +1,30 @@
-== README
+== Example Reading Site
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This site was written as if it were being launched in production for the most part.  Although the style may not be up to par (based off a modified version of the skeleton CSS framework/previous projects), the site is fully functional and contains encrypted passwords and protects against sql injections.
 
-Things you may want to cover:
+= Features
 
-* Ruby version
+You should be able to perform full text searches using elasticsearch, create an account, follow people, comment with markdown, create chapters, add tags/description, modify you account/books, along with a few other features.
 
-* System dependencies
+= Run me!
 
-* Configuration
+To run this on your current machine you will want to have elasticsearch installed, which you will likely want to do through brew.
 
-* Database creation
+First copy the repository to your computer, and then after changing into the directory run
 
-* Database initialization
+elasticsearch::
 
-* How to run the test suite
+Again you will have to have this installed and it will run as a process; we're just starting the server with this command.  The start the app with:
 
-* Services (job queues, cache servers, search engines, etc.)
+bundle install::
+rake db:migrate::
 
-* Deployment instructions
+rails server::
 
-* ...
+And you should be able to go to localhost:3000 to view and navagate the page.
 
+If you'd like to populate the database (although I currently only have 6 test entries), you may run:
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+rake db:seed::
+
+however again I'd recommend changing the seed.db file before running it to hold better data.

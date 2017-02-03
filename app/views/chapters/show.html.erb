@@ -13,7 +13,6 @@
       <ul class="nav-items">
         <%= link_to content_tag(:li, "Home", class: 'nav-item'), root_path, class: "nav-item-link" %>
         <div><%= content_tag(:li, "#{@chapter.tags}", class: 'nav-item') %></div>
-        <!-- PLEASE ENCORPERATE USER_ID INTO CHAPTER, THIS IS SO REDICULOUS -->
         <%= link_to content_tag(:li, "#{User.find(@chapter.user_id).name}", class: 'nav-item'), user_path(@chapter.user_id), class: "nav-item-link" %>
         <% if user_signed_in? && current_user.id == @chapter.user_id %>
           <%= link_to content_tag(:li, "Edit", class: 'nav-item'), edit_book_path(@chapter.book_id), class: "nav-item-link" %>
