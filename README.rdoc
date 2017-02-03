@@ -4,7 +4,7 @@ This site was written as if it were being launched in production for the most pa
 
 = Features
 
-You should be able to perform full text searches using elasticsearch, create an account, follow people, comment with markdown, create chapters, add tags/description, modify you account/books, along with a few other features.
+You should be able to perform full text searches using elasticsearch, create an account, follow people, comment with markdown, create chapters, add tags/description, modify you account/books, page pagination, along with many other features.
 
 = Run me!
 
@@ -12,19 +12,19 @@ To run this on your current machine you will want to have elasticsearch installe
 
 First copy the repository to your computer, and then after changing into the directory run
 
-elasticsearch::
+  $ elasticsearch
 
 Again you will have to have this installed and it will run as a process; we're just starting the server with this command.  The start the app with:
 
-bundle install::
-rake db:migrate::
+  $ bundle install
+  $ rake db:migrate
 
-rails server::
+  $ rails server
 
 And you should be able to go to localhost:3000 to view and navagate the page.
 
 If you'd like to populate the database (although I currently only have 6 test entries), you may run:
 
-rake db:seed::
+  $ rake db:seed
 
 however again I'd recommend changing the seed.db file before running it to hold better data.
