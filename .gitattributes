@@ -1,4 +1,0 @@
-*.rb linguist-language=Java
-special-vendored-path/* linguist-vendored
-bin/ linguist-vendored=true
-*.xhtml linguist-vendored=true
